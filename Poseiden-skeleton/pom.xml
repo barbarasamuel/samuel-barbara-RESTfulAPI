@@ -11,15 +11,15 @@
 		<relativePath/>
 	</parent>
 
-	<groupId>org.poseiden</groupId>
-	<artifactId>Poseiden-skeleton</artifactId>
+	<groupId>com.nnk</groupId>
+	<artifactId>spring-boot</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>spring-boot-skeleton</name>
+	<!--<name>spring-boot-skeleton</name>
 	<description>Demo project for Spring Boot</description>
 
-	<!--<parent>
+	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.1.0</version>
