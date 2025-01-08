@@ -1,8 +1,10 @@
 C:\Users\Barbara\Documents\Projet7\samuel-barbara-RESTfulAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\domain\Rating.java
 C:\Users\Barbara\Documents\Projet7\samuel-barbara-RESTfulAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\domain\BidList.java
+C:\Users\Barbara\Documents\Projet7\samuel-barbara-RESTfulAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\services\UserDetailsServiceImpl.java
 C:\Users\Barbara\Documents\Projet7\samuel-barbara-RESTfulAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\domain\CurvePoint.java
 C:\Users\Barbara\Documents\Projet7\samuel-barbara-RESTfulAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\controllers\LoginController.java
 C:\Users\Barbara\Documents\Projet7\samuel-barbara-RESTfulAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\repositories\TradeRepository.java
+C:\Users\Barbara\Documents\Projet7\samuel-barbara-RESTfulAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\config\SecurityConfig.java
 C:\Users\Barbara\Documents\Projet7\samuel-barbara-RESTfulAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\repositories\UserRepository.java
 C:\Users\Barbara\Documents\Projet7\samuel-barbara-RESTfulAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\controllers\TradeController.java
 C:\Users\Barbara\Documents\Projet7\samuel-barbara-RESTfulAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\domain\RuleName.java
@@ -24,4 +26,5 @@ C:\Users\Barbara\Documents\Projet7\samuel-barbara-RESTfulAPI\Poseiden-skeleton\s
 C:\Users\Barbara\Documents\Projet7\samuel-barbara-RESTfulAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\controllers\RatingController.java
 C:\Users\Barbara\Documents\Projet7\samuel-barbara-RESTfulAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\services\RuleNameService.java
 C:\Users\Barbara\Documents\Projet7\samuel-barbara-RESTfulAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\repositories\BidListRepository.java
+C:\Users\Barbara\Documents\Projet7\samuel-barbara-RESTfulAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\services\CustomLogoutHandler.java
 C:\Users\Barbara\Documents\Projet7\samuel-barbara-RESTfulAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\services\UserService.java

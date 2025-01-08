@@ -5,12 +5,18 @@ import javax.validation.constraints.NotBlank;*/
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.security.core.userdetails.UserDetails;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
+    @Column(nullable=false)
     private Integer id;
     @NotBlank(message = "Username is mandatory")
     private String username;
@@ -21,7 +27,7 @@ public class User {
     @NotBlank(message = "Role is mandatory")
     private String role;
 
-    public Integer getId() {
+    /*public Integer getId() {
         return id;
     }
 
@@ -59,5 +65,5 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
-    }
+    }*/
 }

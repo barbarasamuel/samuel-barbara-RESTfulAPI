@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <title> Spring Boot </title>
+    <!--<link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>-->
+</head>
+<body>
+
+<div>
+    <section>
+        <div class="form-element">
+
+            <!--<div th:if="${param.error}">
+                Invalid username and password.
+            </div>-->
+            <form
+                    method="post"
+                    role="form"
+                    th:action="@{/access}"
+            >
+                <div>
+                    <input
+                            type="email"
+                            id="username"
+                            name="username"
+                            size=40
+                            class="input-element"
+                            placeholder="Email"
+                    />
+                </div>
+
+                <div>
+                    <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            size=40
+                            class="input-element"
+                            placeholder="Password"
+                    />
+                </div>
+
+                <div>
+                    <input
+                            type="checkbox"
+                            id="remember-me"
+                            name="remember-me"
+                    >
+                    <label for="remember-me">Remember me</label>
+                </div>
+
+                <div>
+                    <button class="home-button" type="submit">Login</button>
+
+                </div>
+            </form>
+        </div>
+
+        <!--<div th:if="${param.error}">
+            <div class="alert-email-password">Invalid Email or Password</div>
+        </div>
+        <div th:if="${param.logout}">
+            <div class="alert-logout-success"> You have been logged out.</div>
+        </div>-->
+    </section>
+</div>
+</body>
+</html>

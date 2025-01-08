@@ -12,6 +12,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
+import org.springframework.security.web.authentication.rememberme.InMemoryTokenRepositoryImpl;
 
 /**
  *
@@ -44,10 +46,11 @@ public class SecurityConfig {
         authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
     }
-    /*@Bean
+
+    /**/@Bean
     public PersistentTokenBasedRememberMeServices persistentTokenBasedRememberMeServices(UserDetailsService userDetailsService){
         return new PersistentTokenBasedRememberMeServices("uniqueAndSecret",userDetailsService,new InMemoryTokenRepositoryImpl());
-    }*/
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -59,8 +62,8 @@ public class SecurityConfig {
                 .cors(cors -> cors.disable())
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/error/**","/403","/home").permitAll();
-                    auth.requestMatchers("/**","/login","/","/user/**").permitAll();
-                    auth.requestMatchers("/bidList/**","/curvePoint/**","/rating/**","/ruleName/**","/trade/**").authenticated();
+                    auth.requestMatchers("/**","/login","/user/**").permitAll();
+                    auth.requestMatchers("/","/bidList/**","/curvePoint/**","/rating/**","/ruleName/**","/trade/**").authenticated();
                     auth.anyRequest().permitAll();
                 })
                 .formLogin(formLogin-> formLogin
@@ -69,6 +72,11 @@ public class SecurityConfig {
                         .permitAll())
                 .logout(httpSecurityLogoutConfigurer ->
                         httpSecurityLogoutConfigurer.logoutUrl("/logout"))
+                .rememberMe(rememberMe -> rememberMe
+                        .rememberMeServices(persistentTokenBasedRememberMeServices(userDetailsService()))
+                        .key("uniqueAndSecret")
+                        .tokenValiditySeconds(86400)
+                        .rememberMeCookieName("remember-me"))
                 .build();
     }
 }
