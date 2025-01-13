@@ -16,7 +16,7 @@ import lombok.Setter;
 public class Rating {
     // TODO: Map columns in data table RATING with corresponding java fields
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(nullable=false)
     private Integer Id;
 

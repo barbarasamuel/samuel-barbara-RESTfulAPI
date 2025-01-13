@@ -7,6 +7,7 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;*/
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,7 +21,7 @@ import java.sql.Date;
 public class BidList {
     // TODO: Map columns in data table BIDLIST with corresponding java fields
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(nullable=false)
     private Integer BidListId;
 
@@ -32,6 +33,8 @@ public class BidList {
     @Column(nullable=false)
     private String type;
 
+    @Pattern(regexp = "^[0-9]*$",
+            message = "Only numbers can be typed")
     private Double bidQuantity;
     private Double askQuantity;
     private Double bid;

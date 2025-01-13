@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import lombok.extern.slf4j.XSlf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,15 +37,13 @@ public class LoginController {
     public String handleLogin(
             @RequestParam String username,
             @RequestParam String password,
-            @RequestParam(name="remember-me",defaultValue="false") boolean rememberMe,
-            HttpServletRequest request,
-            HttpServletResponse response){
+            HttpServletRequest request){
 
         try{
-            request.login(username,password);
-            if(rememberMe){
-                rememberMeServices.loginSuccess(request,response, (Authentication) request.getUserPrincipal());
-            }
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            String encodedPassword = encoder.encode(password);
+            request.login(username,encodedPassword);
+
             log.info("Login successful");
             return "redirect:/";
         }catch (Exception e){
@@ -76,5 +75,16 @@ public class LoginController {
         mav.addObject("errorMsg", errorMessage);
         mav.setViewName("403");
         return mav;
+    }
+
+    /**
+     *
+     * To log out
+     *
+     */
+    @GetMapping("/logout")
+    public String logout(){
+        log.info("Logout successful");
+        return "redirect:/login?logout";
     }
 }

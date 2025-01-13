@@ -16,7 +16,7 @@ import lombok.Setter;
 public class RuleName {
     // TODO: Map columns in data table RULENAME with corresponding java fields
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(nullable=false)
     private Integer Id;
 
