@@ -15,8 +15,8 @@ public class BidListService {
     @Autowired
     private BidListRepository bidListRepository;
 
-    public void doSave(BidList bidList){
-        bidListRepository.save(bidList);
+    public BidList doSave(BidList bidList){
+        return bidListRepository.save(bidList);
     }
 
     public List<BidList> findAll(){

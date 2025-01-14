@@ -18,7 +18,7 @@ public class RuleName {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(nullable=false)
-    private Integer Id;
+    private Integer id;
 
     @NotBlank(message = "Name is mandatory")
     private String name;
