@@ -61,8 +61,6 @@ public class BidListController {
     public String updateBid(@Valid @ModelAttribute("bidList") BidList updatedBidList,
                             BindingResult result, Model model) {
         // TODO: check required fields, if valid call service to update Bid and return list Bid
-
-
         if (result.hasErrors()) {
             return "bidList/update";
         }
@@ -70,7 +68,6 @@ public class BidListController {
         bidListService.doSave(updatedBidList);
         model.addAttribute("bidLists", bidListService.findAll());
 
-        /**/
         return "redirect:/bidList/list";
     }
 

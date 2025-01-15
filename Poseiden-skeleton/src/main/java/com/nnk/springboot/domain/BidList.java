@@ -35,10 +35,10 @@ public class BidList {
     private String type;
 
     /*@Pattern(regexp = "^[0-9]*$",
-            message = "Only numbers can be typed")
-    @Pattern(regexp = "^[1-9][0-9]*$",
             message = "Only numbers can be typed")*/
-    @DecimalMin(value = "1", message = "The value must be 1 or more")
+    @Pattern(regexp = "^[1-9][0-9]*$",
+            message = "Only numbers can be typed")
+    //@DecimalMin(value = "1", message = "The value must be 1 or more")
     private Long bidQuantity;
     private Long askQuantity;
     private Double bid;
