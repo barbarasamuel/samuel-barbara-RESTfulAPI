@@ -56,7 +56,7 @@ public class RatingController {
     }
 
     @PostMapping("/rating/update/{id}")
-    public String updateRating(@Valid @ModelAttribute("rating")  Rating updatedRating,
+    public String updateRating(@Valid @ModelAttribute("rating") Rating updatedRating,
                              BindingResult result, Model model) {
         // TODO: check required fields, if valid call service to update Rating and return Rating list
         if (result.hasErrors()) {

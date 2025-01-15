@@ -62,8 +62,8 @@ public class SecurityConfig {
                 .cors(cors -> cors.disable())
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/error/**","/403","/home").permitAll();
-                    auth.requestMatchers("/**","/login","/user/**","/rating/**","/bidList/**","/curvePoint/**").permitAll();
-                    auth.requestMatchers("/","/ruleName/**","/trade/**").authenticated();
+                    auth.requestMatchers("/**","/login","/user/**","/ruleName/**","/rating/**","/bidList/**","/curvePoint/**").permitAll();
+                    auth.requestMatchers("/","/trade/**").authenticated();
                     auth.anyRequest().permitAll();
                 })
                 .formLogin(formLogin-> formLogin
