@@ -2,9 +2,14 @@ package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.domain.CurvePoint;
+import com.nnk.springboot.domain.User;
 import com.nnk.springboot.services.CurvePointService;
+import com.nnk.springboot.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,17 +25,28 @@ public class CurveController {
     @Autowired
     private CurvePointService curvePointService;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping("/curvePoint/list")
     public String home(Model model)
     {
         // TODO: find all Curve Point, add to model
-        List<CurvePoint> curvePoint = curvePointService.findAll();
-        model.addAttribute("curvePoints", curvePoint);
+        List<CurvePoint> curvePointList = curvePointService.findAll();
+
+        /*Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        User user = userService.getUser();
+        User curseUser = userService.findById(user.getId());*/
+
+        //model.addAttribute("username",userDetails.getUsername());
+        //model.addAttribute("username",curseUser.getUsername());
+        model.addAttribute("curvePoints", curvePointList);
         return "curvePoint/list";
     }
 
     @GetMapping("/curvePoint/add")
-    public String addBidForm(CurvePoint curvePoint, Model model) {
+    public String addCurvePointForm(CurvePoint curvePoint, Model model) {
         model.addAttribute("curvePoint",curvePoint);
         return "curvePoint/add";
     }
