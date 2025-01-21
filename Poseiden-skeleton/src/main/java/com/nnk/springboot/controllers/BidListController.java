@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 //import javax.validation.Valid;
 
@@ -46,14 +47,21 @@ public class BidListController {
             model.addAttribute("bidLists", bidListService.findAll());
             return "redirect:/bidList/list";
         }
+        model.addAttribute("bidList", bid);
         return "bidList/add";
     }
 
     @GetMapping("/bidList/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         // TODO: get Bid by Id and to model then show to the form
-        BidList bidList = bidListService.findById(id);
-        model.addAttribute("bidList",bidList);
+        Optional<BidList> bidList = bidListService.findById(id);
+        if(bidList.isEmpty()){
+            model.addAttribute("errorMessage","The chosen bid is empty");
+            model.addAttribute("bidLists", bidListService.findAll());
+            return "bidList/list";
+        }
+
+        model.addAttribute("bidList",bidList.get());
         return "bidList/update";
     }
 
@@ -74,8 +82,8 @@ public class BidListController {
     @GetMapping("/bidList/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model) {
         // TODO: Find Bid by Id and delete the bid, return to Bid list
-        BidList bidList = bidListService.findById(id);
-        bidListService.doDelete(bidList);
+
+        bidListService.doDelete(id);
         model.addAttribute("bidLists", bidListService.findAll());
         return "redirect:/bidList/list";
     }

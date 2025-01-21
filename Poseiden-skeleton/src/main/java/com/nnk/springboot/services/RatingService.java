@@ -21,12 +21,11 @@ public class RatingService {
         return ratingRepository.findAll();
     }
 
-    public Rating findById(Integer id){
-        Optional<Rating> rating = ratingRepository.findById(id);
-        return rating.get();
+    public Optional<Rating> findById(Integer id){
+        return ratingRepository.findById(id);
     }
 
-    public void doDelete(Rating rating){
-        ratingRepository.delete(rating);
+    public void doDelete(Integer id){
+        ratingRepository.deleteById(id);
     }
 }

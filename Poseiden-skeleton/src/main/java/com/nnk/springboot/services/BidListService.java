@@ -23,12 +23,12 @@ public class BidListService {
         return bidListRepository.findAll();
     }
 
-    public BidList findById(Integer id){
+    public Optional<BidList> findById(Integer id){
         Optional<BidList> bidList = bidListRepository.findById(id);
-        return bidList.get();
+        return bidList;
     }
 
-    public void doDelete(BidList bidList){
-        bidListRepository.delete(bidList);
+    public void doDelete(Integer id){
+        bidListRepository.deleteById(id);
     }
 }

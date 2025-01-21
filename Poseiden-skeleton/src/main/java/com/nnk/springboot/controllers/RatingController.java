@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 //import javax.validation.Valid;
 
@@ -50,8 +51,14 @@ public class RatingController {
     @GetMapping("/rating/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         // TODO: get Rating by Id and to model then show to the form
-        Rating rating = ratingService.findById(id);
-        model.addAttribute("rating",rating);
+        Optional<Rating> rating = ratingService.findById(id);
+        if(rating.isEmpty()){
+            model.addAttribute("errorMessage","The chosen rating is empty");
+            model.addAttribute("ratings", ratingService.findAll());
+            return "rating/list";
+        }
+
+        model.addAttribute("rating",rating.get());
         return "rating/update";
     }
 
@@ -71,8 +78,8 @@ public class RatingController {
     @GetMapping("/rating/delete/{id}")
     public String deleteRating(@PathVariable("id") Integer id, Model model) {
         // TODO: Find Rating by Id and delete the Rating, return to Rating list
-        Rating rating = ratingService.findById(id);
-        ratingService.doDelete(rating);
+
+        ratingService.doDelete(id);
         model.addAttribute("ratings", ratingService.findAll());
         return "redirect:/rating/list";
     }

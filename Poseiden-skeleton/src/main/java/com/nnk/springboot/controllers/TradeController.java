@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 //import javax.validation.Valid;
 
@@ -49,8 +50,13 @@ public class TradeController {
     @GetMapping("/trade/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         // TODO: get Trade by Id and to model then show to the form
-        Trade trade = tradeService.findById(id);
-        model.addAttribute("trade",trade);
+        Optional<Trade> trade = tradeService.findById(id);
+        if(trade.isEmpty()){
+            model.addAttribute("errorMessage","The chosen trade is empty");
+            model.addAttribute("trades", tradeService.findAll());
+            return "trade/list";
+        }
+        model.addAttribute("trade",trade.get());
         return "trade/update";
     }
 
@@ -70,8 +76,7 @@ public class TradeController {
     @GetMapping("/trade/delete/{id}")
     public String deleteTrade(@PathVariable("id") Integer id, Model model) {
         // TODO: Find Trade by Id and delete the Trade, return to Trade list
-        Trade trade = tradeService.findById(id);
-        tradeService.doDelete(trade);
+        tradeService.doDelete(id);
         model.addAttribute("trades", tradeService.findAll());
         return "redirect:/trade/list";
     }

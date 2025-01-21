@@ -21,13 +21,12 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User findById(Integer id){
-        Optional<User> foundUser = userRepository.findById(id);
-        return foundUser.get();
+    public Optional<User> findById(Integer id){
+        return userRepository.findById(id);
     }
 
-    public void doDelete(User user){
-        userRepository.delete(user);
+    public void doDelete(Integer id){
+        userRepository.deleteById(id);
     }
 
     public List<User> findAll(){

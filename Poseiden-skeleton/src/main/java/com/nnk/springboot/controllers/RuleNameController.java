@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 //import javax.validation.Valid;
 
@@ -49,8 +50,14 @@ public class RuleNameController {
     @GetMapping("/ruleName/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         // TODO: get RuleName by Id and to model then show to the form
-        RuleName ruleName = ruleNameService.findById(id);
-        model.addAttribute("ruleName",ruleName);
+        Optional<RuleName> ruleName = ruleNameService.findById(id);
+        if(ruleName.isEmpty()){
+            model.addAttribute("errorMessage","The chosen rule name is empty");
+            model.addAttribute("ruleNames", ruleNameService.findAll());
+            return "ruleName/list";
+        }
+
+        model.addAttribute("ruleName",ruleName.get());
         return "ruleName/update";
     }
 
@@ -70,8 +77,8 @@ public class RuleNameController {
     @GetMapping("/ruleName/delete/{id}")
     public String deleteRuleName(@PathVariable("id") Integer id, Model model) {
         // TODO: Find RuleName by Id and delete the RuleName, return to Rule list
-        RuleName ruleName = ruleNameService.findById(id);
-        ruleNameService.doDelete(ruleName);
+        //RuleName ruleName = ruleNameService.findById(id);
+        ruleNameService.doDelete(id);
         model.addAttribute("ruleNames", ruleNameService.findAll());
         return "redirect:/ruleName/list";
     }

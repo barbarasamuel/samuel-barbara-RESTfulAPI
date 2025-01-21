@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 
 @Controller
 public class UserController {
@@ -46,10 +48,15 @@ public class UserController {
     @GetMapping("/user/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         //User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-        User user = userService.findById(id);//.orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        Optional<User> user = userService.findById(id);//.orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        if(user.isEmpty()){
+            model.addAttribute("errorMessage","The chosen user is empty");
+            model.addAttribute("users", userService.findAll());
+            return "user/list";
+        }
 
         //user.setPassword("");
-        model.addAttribute("user", user);
+        model.addAttribute("user", user.get());
         return "user/update";
     }
 
@@ -77,8 +84,8 @@ public class UserController {
         /*User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         userRepository.delete(user);
         model.addAttribute("users", userRepository.findAll());*/
-        User user = userService.findById(id);//.orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-        userService.doDelete(user);
+        //User user = userService.findById(id);//.orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        userService.doDelete(id);
         model.addAttribute("users", userService.findAll());
         return "redirect:/user/list";
     }

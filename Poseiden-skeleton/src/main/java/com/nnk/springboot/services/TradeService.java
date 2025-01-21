@@ -23,12 +23,12 @@ public class TradeService {
         return tradeRepository.findAll();
     }
 
-    public Trade findById(Integer id){
+    public Optional<Trade> findById(Integer id){
         Optional<Trade> trade = tradeRepository.findById(id);
-        return trade.get();
+        return trade;
     }
 
-    public void doDelete(Trade trade){
-        tradeRepository.delete(trade);
+    public void doDelete(Integer id){
+        tradeRepository.deleteById(id);
     }
 }

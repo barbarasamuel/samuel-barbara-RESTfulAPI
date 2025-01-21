@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 //import javax.validation.Valid;
 
@@ -65,8 +66,14 @@ public class CurveController {
     @GetMapping("/curvePoint/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         // TODO: get CurvePoint by Id and to model then show to the form
-        CurvePoint curvePoint = curvePointService.findById(id);
-        model.addAttribute("curvePoint",curvePoint);
+        Optional<CurvePoint> curvePoint = curvePointService.findById(id);
+        if(curvePoint.isEmpty()){
+            model.addAttribute("errorMessage","The chosen curve point is empty");
+            model.addAttribute("curvePoints", curvePointService.findAll());
+            return "curvePoint/list";
+        }
+
+        model.addAttribute("curvePoint",curvePoint.get());
         return "curvePoint/update";
     }
 
@@ -86,8 +93,8 @@ public class CurveController {
     @GetMapping("/curvePoint/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model) {
         // TODO: Find Curve by Id and delete the Curve, return to Curve list
-        CurvePoint curvePoint = curvePointService.findById(id);
-        curvePointService.doDelete(curvePoint);
+
+        curvePointService.doDelete(id);
         model.addAttribute("curvePoints", curvePointService.findAll());
         return "redirect:/curvePoint/list";
     }

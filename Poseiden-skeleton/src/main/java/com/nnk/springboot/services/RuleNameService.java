@@ -21,12 +21,11 @@ public class RuleNameService {
         return ruleNameRepository.findAll();
     }
 
-    public RuleName findById(Integer id){
-        Optional<RuleName> ruleName = ruleNameRepository.findById(id);
-        return ruleName.get();
+    public Optional<RuleName> findById(Integer id){
+        return ruleNameRepository.findById(id);
     }
 
-    public void doDelete(RuleName ruleName){
-        ruleNameRepository.delete(ruleName);
+    public void doDelete(Integer id){
+        ruleNameRepository.deleteById(id);
     }
 }

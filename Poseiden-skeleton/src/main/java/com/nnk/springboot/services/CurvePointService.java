@@ -22,12 +22,11 @@ public class CurvePointService {
         return curvePointRepository.findAll();
     }
 
-    public CurvePoint findById(Integer id){
-        Optional<CurvePoint> curvePoint = curvePointRepository.findById(id);
-        return curvePoint.get();
+    public Optional<CurvePoint> findById(Integer id){
+        return curvePointRepository.findById(id);
     }
 
-    public void doDelete(CurvePoint curvePoint){
-        curvePointRepository.delete(curvePoint);
+    public void doDelete(Integer id){
+        curvePointRepository.deleteById(id);
     }
 }
