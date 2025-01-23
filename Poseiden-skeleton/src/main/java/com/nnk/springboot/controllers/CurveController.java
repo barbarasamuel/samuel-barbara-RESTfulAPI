@@ -60,6 +60,8 @@ public class CurveController {
             model.addAttribute("curvePoints", curvePointService.findAll());
             return "redirect:/curvePoint/list";
         }
+
+        model.addAttribute("curvePoint", curvePoint);
         return "curvePoint/add";
     }
 
@@ -82,6 +84,7 @@ public class CurveController {
                             BindingResult result, Model model) {
         // TODO: check required fields, if valid call service to update Curve and return Curve list
         if (result.hasErrors()) {
+            model.addAttribute("curvePoint", updatedCurvePoint);
             return "curvePoint/update";
         }
 

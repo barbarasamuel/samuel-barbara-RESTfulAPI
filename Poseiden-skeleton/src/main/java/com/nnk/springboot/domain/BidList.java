@@ -6,9 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;*/
 import jakarta.persistence.*;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -36,10 +34,11 @@ public class BidList {
 
     /*@Pattern(regexp = "^[0-9]*$",
             message = "Only numbers can be typed")*/
-    @Pattern(regexp = "^[1-9][0-9]*$",
-            message = "Only numbers can be typed")
+    @Pattern(regexp = "^[1-9][0-9]*$",message = "Only numbers can be typed")
     //@DecimalMin(value = "1", message = "The value must be 1 or more")
-    private Long bidQuantity;
+    @Min(value = 1, message = "The value must be 1 or more")
+    @Max(value = 100, message = "The value must be less than 101")
+    private String bidQuantity;//private Long bidQuantity;
     private Long askQuantity;
     private Double bid;
     private Double ask;
@@ -58,4 +57,8 @@ public class BidList {
     private String dealType;
     private String sourceListId;
     private String side;
+
+    public Long getBidQuantityAsLong() {
+        return Long.parseLong(bidQuantity);
+    }
 }

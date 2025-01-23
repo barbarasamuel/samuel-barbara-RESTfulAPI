@@ -47,10 +47,10 @@ public class SecurityConfig {
         return authProvider;
     }
 
-    /**/@Bean
+    /*@Bean
     public PersistentTokenBasedRememberMeServices persistentTokenBasedRememberMeServices(UserDetailsService userDetailsService){
         return new PersistentTokenBasedRememberMeServices("uniqueAndSecret",userDetailsService,new InMemoryTokenRepositoryImpl());
-    }
+    }*/
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -63,6 +63,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/error/**","/403","/home").permitAll();
                     auth.requestMatchers("/**","/login","/user/**","/ruleName/**","/rating/**","/bidList/**","/curvePoint/**").permitAll();
+                    //auth.requestMatchers("/user/**").hasRole("ADMIN")
                     auth.requestMatchers("/","/trade/**").authenticated();
                     auth.anyRequest().permitAll();
                 })
@@ -72,11 +73,11 @@ public class SecurityConfig {
                         .permitAll())
                 .logout(httpSecurityLogoutConfigurer ->
                         httpSecurityLogoutConfigurer.logoutUrl("/logout"))
-                .rememberMe(rememberMe -> rememberMe
+                /*.rememberMe(rememberMe -> rememberMe
                         .rememberMeServices(persistentTokenBasedRememberMeServices(userDetailsService()))
                         .key("uniqueAndSecret")
                         .tokenValiditySeconds(86400)
-                        .rememberMeCookieName("remember-me"))
+                        .rememberMeCookieName("remember-me"))*/
                 .build();
     }
 }

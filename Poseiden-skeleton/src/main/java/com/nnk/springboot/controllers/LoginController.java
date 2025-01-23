@@ -25,8 +25,8 @@ public class LoginController {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private PersistentTokenBasedRememberMeServices rememberMeServices;
+    /*@Autowired
+    private PersistentTokenBasedRememberMeServices rememberMeServices;*/
 
     /**
      *

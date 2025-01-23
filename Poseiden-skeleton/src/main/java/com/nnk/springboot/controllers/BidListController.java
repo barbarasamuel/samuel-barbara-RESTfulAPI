@@ -47,6 +47,7 @@ public class BidListController {
             model.addAttribute("bidLists", bidListService.findAll());
             return "redirect:/bidList/list";
         }
+
         model.addAttribute("bidList", bid);
         return "bidList/add";
     }
@@ -70,6 +71,7 @@ public class BidListController {
                             BindingResult result, Model model) {
         // TODO: check required fields, if valid call service to update Bid and return list Bid
         if (result.hasErrors()) {
+            model.addAttribute("bidList", updatedBidList);
             return "bidList/update";
         }
 

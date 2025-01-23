@@ -15,6 +15,8 @@ public class CurvePointService {
     private CurvePointRepository curvePointRepository;
 
     public CurvePoint doSave(CurvePoint curvePoint){
+        curvePoint.getTermAsDouble();
+        curvePoint.getValueAsDouble();
         return curvePointRepository.save(curvePoint);
     }
 

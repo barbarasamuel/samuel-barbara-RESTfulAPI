@@ -16,6 +16,7 @@ public class BidListService {
     private BidListRepository bidListRepository;
 
     public BidList doSave(BidList bidList){
+        bidList.getBidQuantityAsLong();
         return bidListRepository.save(bidList);
     }
 
