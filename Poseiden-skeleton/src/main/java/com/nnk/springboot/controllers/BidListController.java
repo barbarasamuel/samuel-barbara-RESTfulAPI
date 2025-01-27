@@ -2,6 +2,7 @@ package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.domain.User;
+import com.nnk.springboot.dto.BidListDTO;
 import com.nnk.springboot.services.BidListService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,14 +33,14 @@ public class BidListController {
     }
 
     @GetMapping("/bidList/add")
-    public String addBidForm(BidList bid,Model model) {
+    public String addBidForm(BidListDTO bid,Model model) {
         //model.addAttribute("bidList",new BidList());
         model.addAttribute("bidList",bid);
         return "bidList/add";
     }
 
     @PostMapping("/bidList/validate")
-    public String validate(@Valid @ModelAttribute("bidList") BidList bid, BindingResult result, Model model) {
+    public String validate(@Valid @ModelAttribute("bidList") BidListDTO bid, BindingResult result, Model model) {
         // TODO: check data valid and save to db, after saving return bid list
         if (!result.hasErrors()) {
             bidListService.doSave(bid);
@@ -67,7 +68,7 @@ public class BidListController {
     }
 
     @PostMapping("/bidList/update/{id}")
-    public String updateBid(@Valid @ModelAttribute("bidList") BidList updatedBidList,
+    public String updateBid(@Valid @ModelAttribute("bidList") BidListDTO updatedBidList,
                             BindingResult result, Model model) {
         // TODO: check required fields, if valid call service to update Bid and return list Bid
         if (result.hasErrors()) {

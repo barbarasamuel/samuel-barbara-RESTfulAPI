@@ -21,7 +21,7 @@ public class CurvePoint {
     private Integer id;
 
     @NotNull(message = "Must not be null")
-    private Integer CurveId;
+    private Integer curveId;
     private Date asOfDate;
 
     @Pattern(regexp = "^[1-9]+(.[0-9]+)?$",message = "Only numbers can be typed")

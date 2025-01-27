@@ -14,6 +14,7 @@ com\nnk\springboot\controllers\HomeController.class
 com\nnk\springboot\services\CustomLogoutHandler.class
 com\nnk\springboot\services\RuleNameService.class
 com\nnk\springboot\domain\User.class
+com\nnk\springboot\dto\BidListDTO.class
 com\nnk\springboot\PoseidenApplication.class
 com\nnk\springboot\repositories\TradeRepository.class
 com\nnk\springboot\repositories\BidListRepository.class

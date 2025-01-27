@@ -24,21 +24,18 @@ public class BidList {
     @Column(nullable=false)
     private Integer id;
 
-    @NotBlank(message = "Account is mandatory")
+    //@NotBlank(message = "Account is mandatory")
     @Column(nullable=false)
     private String account;
 
-    @NotBlank(message = "Type is mandatory")
+    //@NotBlank(message = "Type is mandatory")
     @Column(nullable=false)
     private String type;
 
-    /*@Pattern(regexp = "^[0-9]*$",
-            message = "Only numbers can be typed")*/
-    @Pattern(regexp = "^[1-9][0-9]*$",message = "Only numbers can be typed")
-    //@DecimalMin(value = "1", message = "The value must be 1 or more")
+    /*@Pattern(regexp = "^[1-9][0-9]*$",message = "Only numbers can be typed")
     @Min(value = 1, message = "The value must be 1 or more")
-    @Max(value = 100, message = "The value must be less than 101")
-    private String bidQuantity;//private Long bidQuantity;
+    @Max(value = 100, message = "The value must be less than 101")*/
+    private Double bidQuantity;
     private Long askQuantity;
     private Double bid;
     private Double ask;
@@ -58,7 +55,7 @@ public class BidList {
     private String sourceListId;
     private String side;
 
-    public Long getBidQuantityAsLong() {
-        return Long.parseLong(bidQuantity);
+    public Double getBidQuantityAsDouble(String stringBigQuantity) {
+        return Double.parseDouble(stringBigQuantity);
     }
 }

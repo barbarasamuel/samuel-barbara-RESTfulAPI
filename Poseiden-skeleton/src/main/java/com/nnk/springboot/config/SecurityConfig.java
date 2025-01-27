@@ -63,7 +63,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/error/**","/403","/home").permitAll();
                     auth.requestMatchers("/**","/login","/user/**","/ruleName/**","/rating/**","/bidList/**","/curvePoint/**").permitAll();
-                    //auth.requestMatchers("/user/**").hasRole("ADMIN")
+                    //auth.requestMatchers("/user/**").hasRole("ADMIN");
+                    //auth.requestMatchers("/trade/**","/ruleName/**","/rating/**","/bidList/**","/curvePoint/**").hasAnyRole("USER", "ADMIN")
                     auth.requestMatchers("/","/trade/**").authenticated();
                     auth.anyRequest().permitAll();
                 })

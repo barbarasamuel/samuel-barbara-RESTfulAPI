@@ -2,6 +2,7 @@ package com.nnk.springboot.services;
 
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.domain.User;
+import com.nnk.springboot.dto.BidListDTO;
 import com.nnk.springboot.repositories.BidListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,8 +16,13 @@ public class BidListService {
     @Autowired
     private BidListRepository bidListRepository;
 
-    public BidList doSave(BidList bidList){
-        bidList.getBidQuantityAsLong();
+    public BidList doSave(BidListDTO bidListDTO){
+        BidList bidList = new BidList();
+        bidList.setId(bidListDTO.getId());
+        bidList.setAccount(bidListDTO.getAccount());
+        bidList.setType(bidListDTO.getType());
+        //bidListDTO.setBidQuantity(bidListDTO.getBidQuantity().replace(".", ","));
+        bidList.setBidQuantity(bidList.getBidQuantityAsDouble(bidListDTO.getBidQuantity()));
         return bidListRepository.save(bidList);
     }
 

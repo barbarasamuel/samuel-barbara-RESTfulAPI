@@ -4,6 +4,7 @@ C:\Users\Barbara\Documents\Projet7\samuel-barbara-RESTfulAPI\Poseiden-skeleton\s
 C:\Users\Barbara\Documents\Projet7\samuel-barbara-RESTfulAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\domain\CurvePoint.java
 C:\Users\Barbara\Documents\Projet7\samuel-barbara-RESTfulAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\controllers\LoginController.java
 C:\Users\Barbara\Documents\Projet7\samuel-barbara-RESTfulAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\repositories\TradeRepository.java
+C:\Users\Barbara\Documents\Projet7\samuel-barbara-RESTfulAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\dto\BidListDTO.java
 C:\Users\Barbara\Documents\Projet7\samuel-barbara-RESTfulAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\config\SecurityConfig.java
 C:\Users\Barbara\Documents\Projet7\samuel-barbara-RESTfulAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\repositories\UserRepository.java
 C:\Users\Barbara\Documents\Projet7\samuel-barbara-RESTfulAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\controllers\TradeController.java
