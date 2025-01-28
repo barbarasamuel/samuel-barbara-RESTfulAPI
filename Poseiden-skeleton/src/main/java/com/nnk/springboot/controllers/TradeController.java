@@ -1,7 +1,7 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.domain.Trade;
+import com.nnk.springboot.dto.TradeDTO;
 import com.nnk.springboot.services.TradeService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,25 +25,27 @@ public class TradeController {
     public String home(Model model)
     {
         // TODO: find all Trade, add to model
-        List<Trade> tradeList = tradeService.findAll();
+        List<TradeDTO> tradeList = tradeService.findAll();
         model.addAttribute("trades", tradeList);
         return "trade/list";
     }
 
     @GetMapping("/trade/add")
-    public String addUser(Trade trade, Model model) {
+    public String addUser(TradeDTO trade, Model model) {
         model.addAttribute("trade",trade);
         return "trade/add";
     }
 
     @PostMapping("/trade/validate")
-    public String validate(@Valid @ModelAttribute("trade") Trade trade, BindingResult result, Model model) {
+    public String validate(@Valid @ModelAttribute("trade") TradeDTO trade, BindingResult result, Model model) {
         // TODO: check data valid and save to db, after saving return Trade list
         if (!result.hasErrors()) {
             tradeService.doSave(trade);
             model.addAttribute("trades", tradeService.findAll());
             return "redirect:/trade/list";
         }
+
+        model.addAttribute("trade", trade);
         return "trade/add";
     }
 
@@ -56,15 +58,16 @@ public class TradeController {
             model.addAttribute("trades", tradeService.findAll());
             return "trade/list";
         }
-        model.addAttribute("trade",trade.get());
+        model.addAttribute("trade",tradeService.getTradeDTO(trade.get()));
         return "trade/update";
     }
 
     @PostMapping("/trade/update/{id}")
-    public String updateTrade(@Valid @ModelAttribute("trade") Trade updatedTrade,
+    public String updateTrade(@Valid @ModelAttribute("trade") TradeDTO updatedTrade,
                               BindingResult result,  Model model) {
         // TODO: check required fields, if valid call service to update Trade and return Trade list
         if (result.hasErrors()) {
+            model.addAttribute("trade", updatedTrade);
             return "trade/update";
         }
 

@@ -21,11 +21,11 @@ public class Trade {
     @Column(nullable=false)
     private Integer id;
 
-    @NotBlank(message = "Account is mandatory")
+    //@NotBlank(message = "Account is mandatory")
     @Column(nullable=false)
     private String account;
 
-    @NotBlank(message = "Type is mandatory")
+    //@NotBlank(message = "Type is mandatory")
     @Column(nullable=false)
     private String type;
 
@@ -47,4 +47,10 @@ public class Trade {
     private String dealType;
     private String sourceListId;
     private String side;
+
+    public Double getBuyQuantityAsDouble(String stringBuyQuantity) {
+        return Double.parseDouble(stringBuyQuantity);
+    }
+    public String getBuyQuantityAsString(Double doubleBuyQuantity) { return String.valueOf(doubleBuyQuantity);}
+
 }

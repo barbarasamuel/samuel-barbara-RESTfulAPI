@@ -28,5 +28,6 @@ com\nnk\springboot\domain\Rating.class
 com\nnk\springboot\controllers\RuleNameController.class
 com\nnk\springboot\controllers\BidListController.class
 com\nnk\springboot\repositories\CurvePointRepository.class
+com\nnk\springboot\dto\TradeDTO.class
 com\nnk\springboot\services\UserDetailsServiceImpl.class
 com\nnk\springboot\repositories\RuleNameRepository.class
