@@ -1,15 +1,12 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.domain.BidList;
+
 import com.nnk.springboot.domain.CurvePoint;
-import com.nnk.springboot.domain.User;
+import com.nnk.springboot.dto.CurvePointDTO;
 import com.nnk.springboot.services.CurvePointService;
 import com.nnk.springboot.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -33,7 +30,7 @@ public class CurveController {
     public String home(Model model)
     {
         // TODO: find all Curve Point, add to model
-        List<CurvePoint> curvePointList = curvePointService.findAll();
+        List<CurvePointDTO> curvePointDTOList = curvePointService.findAll();
 
         /*Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
@@ -42,18 +39,18 @@ public class CurveController {
 
         //model.addAttribute("username",userDetails.getUsername());
         //model.addAttribute("username",curseUser.getUsername());
-        model.addAttribute("curvePoints", curvePointList);
+        model.addAttribute("curvePoints", curvePointDTOList);
         return "curvePoint/list";
     }
 
     @GetMapping("/curvePoint/add")
-    public String addCurvePointForm(CurvePoint curvePoint, Model model) {
+    public String addCurvePointForm(CurvePointDTO curvePoint, Model model) {
         model.addAttribute("curvePoint",curvePoint);
         return "curvePoint/add";
     }
 
     @PostMapping("/curvePoint/validate")
-    public String validate(@Valid @ModelAttribute("curvePoint") CurvePoint curvePoint, BindingResult result, Model model) {
+    public String validate(@Valid @ModelAttribute("curvePoint") CurvePointDTO curvePoint, BindingResult result, Model model) {
         // TODO: check data valid and save to db, after saving return Curve list
         if (!result.hasErrors()) {
             curvePointService.doSave(curvePoint);
@@ -75,12 +72,12 @@ public class CurveController {
             return "curvePoint/list";
         }
 
-        model.addAttribute("curvePoint",curvePoint.get());
+        model.addAttribute("curvePoint",curvePointService.getCurvePointDTO(curvePoint.get()));
         return "curvePoint/update";
     }
 
     @PostMapping("/curvePoint/update/{id}")
-    public String updateBid(@Valid @ModelAttribute("curvePoint") CurvePoint updatedCurvePoint,
+    public String updateBid(@Valid @ModelAttribute("curvePoint") CurvePointDTO updatedCurvePoint,
                             BindingResult result, Model model) {
         // TODO: check required fields, if valid call service to update Curve and return Curve list
         if (result.hasErrors()) {

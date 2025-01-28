@@ -1,7 +1,6 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.BidList;
-import com.nnk.springboot.domain.User;
 import com.nnk.springboot.dto.BidListDTO;
 import com.nnk.springboot.services.BidListService;
 import jakarta.validation.Valid;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-//import javax.validation.Valid;
 
 
 @Controller
@@ -26,8 +24,8 @@ public class BidListController {
     //@RequestMapping("/bidList/list")
     @GetMapping("/bidList/list")
     public String home(Model model){
-        List<BidList> bidsList = bidListService.findAll();
-        model.addAttribute("bidsList", bidsList);
+        List<BidListDTO> bidsListDTO = bidListService.findAll();
+        model.addAttribute("bidsList", bidsListDTO);
         // TODO: call service find all bids to show to the view
         return "bidList/list";
     }
@@ -63,7 +61,7 @@ public class BidListController {
             return "bidList/list";
         }
 
-        model.addAttribute("bidList",bidList.get());
+        model.addAttribute("bidList",bidListService.getBidListDTO(bidList.get()));
         return "bidList/update";
     }
 

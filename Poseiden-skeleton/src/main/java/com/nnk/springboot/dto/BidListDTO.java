@@ -1,10 +1,10 @@
 package com.nnk.springboot.dto;
 
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+
 import lombok.Data;
 
 import java.sql.Date;
@@ -24,7 +24,7 @@ public class BidListDTO {
     @NotBlank(message = "Type is mandatory")
     private String type;
 
-    @Pattern(regexp = "^[1-9]+(.[0-9]+)?$",message = "Only numbers can be typed")
+    @Pattern(regexp = "^[0-9]+(.[0-9]+)?$",message = "Only numbers can be typed")
     @Min(value = 1, message = "The value must be 1 or more")
     @Max(value = 100, message = "The value must be less than 101")
     private String bidQuantity;
@@ -46,4 +46,14 @@ public class BidListDTO {
     private String dealType;
     private String sourceListId;
     private String side;
+
+
+    public BidListDTO() {}
+
+    public BidListDTO(Integer id, String account, String type, String bidQuantity) {
+        this.id = id;
+        this.account = account;
+        this.type = type;
+        this.bidQuantity = bidQuantity;
+    }
 }

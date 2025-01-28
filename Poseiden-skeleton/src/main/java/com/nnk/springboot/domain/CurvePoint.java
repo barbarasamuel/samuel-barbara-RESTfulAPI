@@ -5,7 +5,6 @@ import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
 
-//import java.sql.Timestamp;
 import java.util.Date;
 
 
@@ -20,23 +19,21 @@ public class CurvePoint {
     @Column(nullable = false)
     private Integer id;
 
-    @NotNull(message = "Must not be null")
     private Integer curveId;
     private Date asOfDate;
-
-    @Pattern(regexp = "^[1-9]+(.[0-9]+)?$",message = "Only numbers can be typed")
-    @Min(value = 1, message = "The value must be 1 or more")
-    private String term;
-
-    @Pattern(regexp = "^[1-9]+(.[0-9]+)?$",message = "Only numbers can be typed")
-    @Min(value = 1, message = "The value must be 1 or more")
-    private String value;
+    private Double term;
+    private Double value;
     private Date creationDate;
 
-    public Double getValueAsDouble() {
-        return Double.parseDouble(value);
+    public Double getValueAsDouble(String stringValue) {
+        return Double.parseDouble(stringValue);
     }
-    public Double getTermAsDouble() {
-        return Double.parseDouble(term);
+    public Double getTermAsDouble(String stringTerm) {
+        return Double.parseDouble(stringTerm);
     }
+
+    public String getValueAsString(Double doubleValue) { return String.valueOf(doubleValue);}
+
+    public String getTermAsString(Double doubleTerm) { return String.valueOf(doubleTerm);}
+
 }

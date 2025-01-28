@@ -1,17 +1,12 @@
 package com.nnk.springboot.domain;
 
-/*import org.springframework.beans.factory.annotation.Required;
 
-import javax.persistence.*;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotBlank;*/
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Date;
-//import java.sql.Timestamp;
+
 
 @Getter
 @Setter
@@ -24,17 +19,12 @@ public class BidList {
     @Column(nullable=false)
     private Integer id;
 
-    //@NotBlank(message = "Account is mandatory")
     @Column(nullable=false)
     private String account;
 
-    //@NotBlank(message = "Type is mandatory")
     @Column(nullable=false)
     private String type;
 
-    /*@Pattern(regexp = "^[1-9][0-9]*$",message = "Only numbers can be typed")
-    @Min(value = 1, message = "The value must be 1 or more")
-    @Max(value = 100, message = "The value must be less than 101")*/
     private Double bidQuantity;
     private Long askQuantity;
     private Double bid;
@@ -58,4 +48,5 @@ public class BidList {
     public Double getBidQuantityAsDouble(String stringBigQuantity) {
         return Double.parseDouble(stringBigQuantity);
     }
+    public String getBidQuantityAsString(Double doubleBigQuantity) { return String.valueOf(doubleBigQuantity);}
 }
