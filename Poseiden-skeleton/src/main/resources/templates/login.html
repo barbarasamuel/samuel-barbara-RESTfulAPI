@@ -4,55 +4,50 @@
 >
 <head>
     <title> Spring Boot </title>
-    <!--<link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>-->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" >
 </head>
 <body>
 
-<div>
+<div class="container">
     <section>
-        <div class="form-element">
+        <div class="row">
 
             <!--<div th:if="${param.error}">
                 Invalid username and password.
             </div>-->
             <form
                     method="post"
-                    role="form"
+                    role="form" th:object="${user}"
                     th:action="@{/access}"
             >
-                <div>
-                    <input
-                            type="text"
-                            id="username"
-                            name="username"
-                            size=40
-                            class="input-element"
-                            placeholder="Username"
-                    />
+                <div class="form-group">
+                    <label for="username" class="col-sm-2 control-label">Username</label>
+                    <div class="col-sm-10">
+                        <input type="text" th:field="*{username}" id="username" size=40 placeholder="Username" class="col-4">
+                        <p class="text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
+                    </div>
                 </div>
 
-                <div>
-                    <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            size=40
-                            class="input-element"
-                            placeholder="Password"
-                    />
+                <div class="form-group">
+                    <label for="password" class="col-sm-2 control-label">Password</label>
+                    <div class="col-sm-10">
+                        <input type="password" th:field="*{password}" id="password" size=40 placeholder="Password" class="col-4">
+                        <p class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+                    </div>
                 </div>
 
-                <div>
-                    <button class="home-button" type="submit">Login</button>
-
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <button class="btn btn-primary btn-sm" size=40 type="submit">Login</button>
+                    </div>
                 </div>
             </form>
         </div>
 
-        <!--<div th:if="${param.error}">
-            <div class="alert-email-password">Invalid Email or Password</div>
+        <div th:if="${param.error}">
+            <div class=text-danger>Invalid username or password</div>
         </div>
-        <div th:if="${param.logout}">
+        <!--<div th:if="${param.logout}">
             <div class="alert-logout-success"> You have been logged out.</div>
         </div>-->
     </section>

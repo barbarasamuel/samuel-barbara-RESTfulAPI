@@ -61,11 +61,11 @@ public class SecurityConfig {
                 })
                 .cors(cors -> cors.disable())
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/error/**","/403","/home").permitAll();
-                    auth.requestMatchers("/**","/login","/user/**","/ruleName/**","/rating/**","/bidList/**","/curvePoint/**").permitAll();
+                    auth.requestMatchers("/error/**","/403","/home","/login").permitAll();
+                    //auth.requestMatchers("/**","/login","/user/**","/ruleName/**","/rating/**","/bidList/**","/curvePoint/**").permitAll();
                     //auth.requestMatchers("/user/**").hasRole("ADMIN");
                     //auth.requestMatchers("/trade/**","/ruleName/**","/rating/**","/bidList/**","/curvePoint/**").hasAnyRole("USER", "ADMIN")
-                    auth.requestMatchers("/","/trade/**").authenticated();
+                    auth.requestMatchers("/","/trade/**","/user/**","/ruleName/**","/rating/**","/bidList/**","/curvePoint/**").authenticated();
                     auth.anyRequest().permitAll();
                 })
                 .formLogin(formLogin-> formLogin
