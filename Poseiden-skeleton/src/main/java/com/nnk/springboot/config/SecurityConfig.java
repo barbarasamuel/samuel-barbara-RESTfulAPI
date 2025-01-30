@@ -4,6 +4,7 @@ import com.nnk.springboot.services.CustomLogoutHandler;
 import com.nnk.springboot.services.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,8 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
-import org.springframework.security.web.authentication.rememberme.InMemoryTokenRepositoryImpl;
+
 
 /**
  *
@@ -47,11 +47,6 @@ public class SecurityConfig {
         return authProvider;
     }
 
-    /*@Bean
-    public PersistentTokenBasedRememberMeServices persistentTokenBasedRememberMeServices(UserDetailsService userDetailsService){
-        return new PersistentTokenBasedRememberMeServices("uniqueAndSecret",userDetailsService,new InMemoryTokenRepositoryImpl());
-    }*/
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
@@ -62,9 +57,7 @@ public class SecurityConfig {
                 .cors(cors -> cors.disable())
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/error/**","/403","/home","/login").permitAll();
-                    //auth.requestMatchers("/**","/login","/user/**","/ruleName/**","/rating/**","/bidList/**","/curvePoint/**").permitAll();
-                    //auth.requestMatchers("/user/**").hasRole("ADMIN");
-                    //auth.requestMatchers("/trade/**","/ruleName/**","/rating/**","/bidList/**","/curvePoint/**").hasAnyRole("USER", "ADMIN")
+                    auth.requestMatchers(HttpMethod.GET, "/user/**").hasAuthority("ADMIN");
                     auth.requestMatchers("/","/trade/**","/user/**","/ruleName/**","/rating/**","/bidList/**","/curvePoint/**").authenticated();
                     auth.anyRequest().permitAll();
                 })
@@ -74,11 +67,7 @@ public class SecurityConfig {
                         .permitAll())
                 .logout(httpSecurityLogoutConfigurer ->
                         httpSecurityLogoutConfigurer.logoutUrl("/logout"))
-                /*.rememberMe(rememberMe -> rememberMe
-                        .rememberMeServices(persistentTokenBasedRememberMeServices(userDetailsService()))
-                        .key("uniqueAndSecret")
-                        .tokenValiditySeconds(86400)
-                        .rememberMeCookieName("remember-me"))*/
+
                 .build();
     }
 }
