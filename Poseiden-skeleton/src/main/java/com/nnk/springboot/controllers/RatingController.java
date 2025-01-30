@@ -3,7 +3,9 @@ package com.nnk.springboot.controllers;
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.domain.Rating;
+import com.nnk.springboot.domain.User;
 import com.nnk.springboot.services.RatingService;
+import com.nnk.springboot.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,11 +24,17 @@ public class RatingController {
     @Autowired
     private RatingService ratingService;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping("/rating/list")
     public String home(Model model)
     {
         // TODO: find all Rating, add to model
         List<Rating> ratingList = ratingService.findAll();
+        User user = userService.getFullname();
+
+        model.addAttribute("user",user.getFullname());
         model.addAttribute("ratings", ratingList);
         return "rating/list";
     }

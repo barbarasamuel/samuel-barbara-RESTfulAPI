@@ -1,8 +1,10 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.Trade;
+import com.nnk.springboot.domain.User;
 import com.nnk.springboot.dto.TradeDTO;
 import com.nnk.springboot.services.TradeService;
+import com.nnk.springboot.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,11 +23,17 @@ public class TradeController {
     @Autowired
     private TradeService tradeService;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping("/trade/list")
     public String home(Model model)
     {
         // TODO: find all Trade, add to model
         List<TradeDTO> tradeList = tradeService.findAll();
+        User user = userService.getFullname();
+
+        model.addAttribute("user",user.getFullname());
         model.addAttribute("trades", tradeList);
         return "trade/list";
     }

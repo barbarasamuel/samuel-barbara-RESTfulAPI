@@ -1,8 +1,10 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.BidList;
+import com.nnk.springboot.domain.User;
 import com.nnk.springboot.dto.BidListDTO;
 import com.nnk.springboot.services.BidListService;
+import com.nnk.springboot.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,10 +23,15 @@ public class BidListController {
     @Autowired
     private BidListService bidListService;
 
+    @Autowired
+    private UserService userService;
     //@RequestMapping("/bidList/list")
     @GetMapping("/bidList/list")
     public String home(Model model){
         List<BidListDTO> bidsListDTO = bidListService.findAll();
+        User user = userService.getFullname();
+
+        model.addAttribute("user",user.getFullname());
         model.addAttribute("bidsList", bidsListDTO);
         // TODO: call service find all bids to show to the view
         return "bidList/list";

@@ -2,6 +2,7 @@ package com.nnk.springboot.controllers;
 
 
 import com.nnk.springboot.domain.CurvePoint;
+import com.nnk.springboot.domain.User;
 import com.nnk.springboot.dto.CurvePointDTO;
 import com.nnk.springboot.services.CurvePointService;
 import com.nnk.springboot.services.UserService;
@@ -31,14 +32,9 @@ public class CurveController {
     {
         // TODO: find all Curve Point, add to model
         List<CurvePointDTO> curvePointDTOList = curvePointService.findAll();
+        User user = userService.getFullname();
 
-        /*Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        User user = userService.getUser();
-        User curseUser = userService.findById(user.getId());*/
-
-        //model.addAttribute("username",userDetails.getUsername());
-        //model.addAttribute("username",curseUser.getUsername());
+        model.addAttribute("user",user.getFullname());
         model.addAttribute("curvePoints", curvePointDTOList);
         return "curvePoint/list";
     }

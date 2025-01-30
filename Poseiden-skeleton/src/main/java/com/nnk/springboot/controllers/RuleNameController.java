@@ -2,7 +2,9 @@ package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.domain.RuleName;
+import com.nnk.springboot.domain.User;
 import com.nnk.springboot.services.RuleNameService;
+import com.nnk.springboot.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,11 +23,17 @@ public class RuleNameController {
     @Autowired
     private RuleNameService ruleNameService;
 
+    @Autowired
+    private UserService userService;
+
     @RequestMapping("/ruleName/list")
     public String home(Model model)
     {
         // TODO: find all RuleName, add to model
         List<RuleName> ruleNameList = ruleNameService.findAll();
+        User user = userService.getFullname();
+
+        model.addAttribute("user",user.getFullname());
         model.addAttribute("ruleNames", ruleNameList);
         return "ruleName/list";
     }
