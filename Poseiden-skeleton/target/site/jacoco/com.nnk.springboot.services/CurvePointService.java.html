@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CurvePointService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-boot</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.services</a> &gt; <span class="el_source">CurvePointService.java</span></div><h1>CurvePointService.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.services;
+
+import com.nnk.springboot.domain.CurvePoint;
+import com.nnk.springboot.dto.CurvePointDTO;
+import com.nnk.springboot.repositories.CurvePointRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+@Service
+<span class="fc" id="L14">public class CurvePointService {</span>
+    @Autowired
+    private CurvePointRepository curvePointRepository;
+
+    public CurvePoint doSave(CurvePointDTO curvePointDTO){
+<span class="nc" id="L19">        CurvePoint curvePoint = new CurvePoint();</span>
+<span class="nc" id="L20">        curvePoint.setId(curvePointDTO.getId());</span>
+<span class="nc" id="L21">        curvePoint.setCurveId(curvePointDTO.getCurveId());</span>
+<span class="nc" id="L22">        curvePoint.setTerm(curvePoint.getTermAsDouble(curvePointDTO.getTerm()));</span>
+<span class="nc" id="L23">        curvePoint.setValue(curvePoint.getValueAsDouble(curvePointDTO.getValue()));</span>
+<span class="nc" id="L24">        return curvePointRepository.save(curvePoint);</span>
+    }
+
+    public List&lt;CurvePointDTO&gt; findAll(){
+<span class="nc" id="L28">        List&lt;CurvePointDTO&gt; curvePointDTOList = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L29">        List&lt;CurvePoint&gt; curvePointList = curvePointRepository.findAll();</span>
+
+<span class="nc bnc" id="L31" title="All 2 branches missed.">        for (CurvePoint curseCurvePoint : curvePointList</span>
+        ) {
+<span class="nc" id="L33">            curvePointDTOList.add(</span>
+                    new CurvePointDTO(
+<span class="nc" id="L35">                            curseCurvePoint.getId(),</span>
+<span class="nc" id="L36">                            curseCurvePoint.getCurveId(),</span>
+<span class="nc" id="L37">                            curseCurvePoint.getTermAsString(curseCurvePoint.getTerm()),</span>
+<span class="nc" id="L38">                            curseCurvePoint.getValueAsString(curseCurvePoint.getValue()))</span>
+            );
+<span class="nc" id="L40">        }</span>
+<span class="nc" id="L41">        return curvePointDTOList;</span>
+    }
+
+    public Optional&lt;CurvePoint&gt; findById(Integer id){
+<span class="nc" id="L45">        return curvePointRepository.findById(id);</span>
+    }
+
+    public void doDelete(Integer id){
+<span class="nc" id="L49">        curvePointRepository.deleteById(id);</span>
+<span class="nc" id="L50">    }</span>
+
+    public CurvePointDTO getCurvePointDTO(CurvePoint curvePoint){
+<span class="nc" id="L53">        CurvePointDTO curvePointDTO = new CurvePointDTO();</span>
+<span class="nc" id="L54">        curvePointDTO.setId(curvePoint.getId());</span>
+<span class="nc" id="L55">        curvePointDTO.setCurveId(curvePoint.getCurveId());</span>
+<span class="nc" id="L56">        curvePointDTO.setTerm(curvePoint.getTermAsString(curvePoint.getTerm()));</span>
+<span class="nc" id="L57">        curvePointDTO.setValue(curvePoint.getValueAsString(curvePoint.getValue()));</span>
+
+<span class="nc" id="L59">        return curvePointDTO;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

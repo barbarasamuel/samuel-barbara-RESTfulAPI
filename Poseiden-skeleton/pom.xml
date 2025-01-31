@@ -151,10 +151,9 @@
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<configuration>
 					<excludes>
-						<!--<exclude>org/paymybuddy/transfermoney/model/*</exclude>
-						<exclude>org/paymybuddy/transfermoney/entity/*</exclude>
-						<exclude>org/paymybuddy/transfermoney/mapper/*</exclude>
-						<exclude>**/config/*</exclude>-->
+						<exclude>com/nnk/springboot/dto/*</exclude>
+						<exclude>com/nnk/springboot/domain/*</exclude>
+						<exclude>**/config/*</exclude>
 					</excludes>
 				</configuration>
 				<version>0.8.12</version>
