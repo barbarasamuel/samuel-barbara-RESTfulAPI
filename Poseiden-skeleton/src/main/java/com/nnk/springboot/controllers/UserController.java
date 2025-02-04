@@ -1,6 +1,7 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.User;
+import com.nnk.springboot.dto.UserDTO;
 import com.nnk.springboot.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -29,19 +31,22 @@ public class UserController {
     }
 
     @GetMapping("/user/add")
-    public String addUser(User bid) {
+    public String addUser(UserDTO userDTO, Model model) {
+        model.addAttribute("user", userDTO);
         return "user/add";
     }
 
     @PostMapping("/user/validate")
-    public String validate(@Valid @ModelAttribute("user") User user, BindingResult result, Model model) {
+    public String validate(@Valid @ModelAttribute("user") UserDTO userDTO, BindingResult result, Model model) {
         if (!result.hasErrors()) {
             //userRepository.save(user);
-            userService.doSave(user);
+            userService.doSave(userDTO);
             //model.addAttribute("users", userRepository.findAll());
             model.addAttribute("users", userService.findAll());
             return "redirect:/user/list";
         }
+
+        model.addAttribute("user", userDTO);
         return "user/add";
     }
 
@@ -56,23 +61,23 @@ public class UserController {
         }
 
         //user.setPassword("");
-        model.addAttribute("user", user.get());
+        model.addAttribute("user", userService.getUserDTO(user.get()));
         return "user/update";
     }
 
     @PostMapping("/user/update/{id}")
     /*public String updateUser(@PathVariable("id") Integer id, @RequestParam("") User user,
                              BindingResult result, Model model) {*/
-    public String updateUser(@Valid @ModelAttribute("user") User updatedUser,
+    public String updateUser(@Valid @ModelAttribute("user") UserDTO updatedUser,
                              BindingResult result, Model model) {
         if (result.hasErrors()) {
+            model.addAttribute("user", updatedUser);
             return "user/update";
         }
 
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        updatedUser.setPassword(encoder.encode(updatedUser.getPassword()));
-        /*user.setId(id);
+        /*
         userRepository.save(user);*/
+
         userService.doSave(updatedUser);
         //model.addAttribute("users", userRepository.findAll());
         model.addAttribute("users", userService.findAll());

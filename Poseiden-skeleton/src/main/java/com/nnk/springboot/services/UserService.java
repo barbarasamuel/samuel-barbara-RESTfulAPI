@@ -1,6 +1,7 @@
 package com.nnk.springboot.services;
 
 import com.nnk.springboot.domain.User;
+import com.nnk.springboot.dto.UserDTO;
 import com.nnk.springboot.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -10,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,8 +23,15 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public User doSave(User user){
-        user.setPassword(passwordEncoder.encode((user.getPassword())));
+
+    public User doSave(UserDTO gottenUser){
+        User user = new User();
+        user.setId(gottenUser.getId());
+        user.setFullname(gottenUser.getFullname());
+        user.setUsername(gottenUser.getUsername());
+        user.setPassword(passwordEncoder.encode((gottenUser.getPassword())));
+        user.setRole(gottenUser.getRole());
+
         return userRepository.save(user);
     }
 
@@ -34,8 +43,21 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public List<User> findAll(){
-        return userRepository.findAll();
+    public List<UserDTO> findAll(){
+        List<UserDTO> usersDTOList = new ArrayList<>();
+        List<User> usersList = userRepository.findAll();
+
+        for(User user: usersList){
+            usersDTOList.add(new UserDTO(
+               user.getId(),
+               user.getFullname(),
+               user.getUsername(),
+               user.getPassword(),
+               user.getRole()
+            ));
+        }
+
+        return usersDTOList;
     }
 
     public User getUser(String username){
@@ -56,6 +78,19 @@ public class UserService {
     public User getFullname(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
         return userRepository.findByUsername(userDetails.getUsername());
+    }
+
+    public UserDTO getUserDTO(User user){
+        UserDTO userDTO = new UserDTO();
+
+        userDTO.setId(user.getId());
+        userDTO.setFullname(user.getFullname());
+        userDTO.setUsername(user.getUsername());
+        userDTO.setPassword(user.getPassword());
+        userDTO.setRole(user.getRole());
+
+        return userDTO;
     }
 }

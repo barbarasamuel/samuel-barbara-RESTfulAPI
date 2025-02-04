@@ -4,9 +4,7 @@ package com.nnk.springboot.domain;
 import javax.validation.constraints.NotBlank;*/
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
@@ -17,13 +15,17 @@ public class User {
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(nullable=false)
     private Integer id;
-    @NotBlank(message = "Username is mandatory")
+
+    @Column(nullable=false)
     private String username;
-    @NotBlank(message = "Password is mandatory")
+
+    @Column(nullable=false)
     private String password;
-    @NotBlank(message = "FullName is mandatory")
+
+    @Column(nullable=false)
     private String fullname;
-    @NotBlank(message = "Role is mandatory")
+
+    @Column(nullable=false)
     private String role;
 
     /*public Integer getId() {
