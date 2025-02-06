@@ -25,3 +25,10 @@
 ## Security
 1. Create user service to load user from  database and place in package com.nnk.springboot.services
 2. Add configuration class and place in package com.nnk.springboot.config
+
+## Database
+1. To create the database with data, use the data.sql dump
+
+## Connection
+1. To connect like a user, use the paul username  and the User**25 password
+2. To connect like an admin, use the alexandre username  and the Admin*25 password
