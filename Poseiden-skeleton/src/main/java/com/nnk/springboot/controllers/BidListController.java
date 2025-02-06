@@ -25,7 +25,12 @@ public class BidListController {
 
     @Autowired
     private UserService userService;
-    //@RequestMapping("/bidList/list")
+
+    /**
+     *
+     * To access to the bidList/list page
+     *
+     */
     @GetMapping("/bidList/list")
     public String home(Model model){
         List<BidListDTO> bidsListDTO = bidListService.findAll();
@@ -37,6 +42,11 @@ public class BidListController {
         return "bidList/list";
     }
 
+    /**
+     *
+     * To access to the bidList/add page
+     *
+     */
     @GetMapping("/bidList/add")
     public String addBidForm(BidListDTO bid,Model model) {
         //model.addAttribute("bidList",new BidList());
@@ -44,11 +54,19 @@ public class BidListController {
         return "bidList/add";
     }
 
+    /**
+     *
+     * To create a new bidList
+     *
+     */
     @PostMapping("/bidList/validate")
     public String validate(@Valid @ModelAttribute("bidList") BidListDTO bid, BindingResult result, Model model) {
         // TODO: check data valid and save to db, after saving return bid list
         if (!result.hasErrors()) {
             bidListService.doSave(bid);
+            User user = userService.getFullname();
+
+            model.addAttribute("user",user.getFullname());
             //model.addAttribute("users", userRepository.findAll());
             model.addAttribute("bidLists", bidListService.findAll());
             return "redirect:/bidList/list";
@@ -58,11 +76,19 @@ public class BidListController {
         return "bidList/add";
     }
 
+    /**
+     *
+     * To access to the bidList/update page about a bidList
+     *
+     */
     @GetMapping("/bidList/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         // TODO: get Bid by Id and to model then show to the form
         Optional<BidList> bidList = bidListService.findById(id);
         if(bidList.isEmpty()){
+            User user = userService.getFullname();
+
+            model.addAttribute("user",user.getFullname());
             model.addAttribute("errorMessage","The chosen bid is empty");
             model.addAttribute("bidLists", bidListService.findAll());
             return "bidList/list";
@@ -72,6 +98,11 @@ public class BidListController {
         return "bidList/update";
     }
 
+    /**
+     *
+     * To update a bidList
+     *
+     */
     @PostMapping("/bidList/update/{id}")
     public String updateBid(@Valid @ModelAttribute("bidList") BidListDTO updatedBidList,
                             BindingResult result, Model model) {
@@ -82,16 +113,27 @@ public class BidListController {
         }
 
         bidListService.doSave(updatedBidList);
+        User user = userService.getFullname();
+
+        model.addAttribute("user",user.getFullname());
         model.addAttribute("bidLists", bidListService.findAll());
 
         return "redirect:/bidList/list";
     }
 
+    /**
+     *
+     * To delete a bidList
+     *
+     */
     @GetMapping("/bidList/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model) {
         // TODO: Find Bid by Id and delete the bid, return to Bid list
 
         bidListService.doDelete(id);
+        User user = userService.getFullname();
+
+        model.addAttribute("user",user.getFullname());
         model.addAttribute("bidLists", bidListService.findAll());
         return "redirect:/bidList/list";
     }

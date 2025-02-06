@@ -1,6 +1,5 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.services.RuleNameService;
@@ -26,6 +25,11 @@ public class RuleNameController {
     @Autowired
     private UserService userService;
 
+    /**
+     *
+     * To access to the ruleName/list page
+     *
+     */
     @RequestMapping("/ruleName/list")
     public String home(Model model)
     {
@@ -38,28 +42,49 @@ public class RuleNameController {
         return "ruleName/list";
     }
 
+    /**
+     *
+     * To access to the ruleName/add page
+     *
+     */
     @GetMapping("/ruleName/add")
     public String addRuleForm(RuleName ruleName, Model model) {
         model.addAttribute("ruleName",ruleName);
         return "ruleName/add";
     }
 
+    /**
+     *
+     * To create a new ruleName
+     *
+     */
     @PostMapping("/ruleName/validate")
     public String validate(@Valid @ModelAttribute("ruleName") RuleName ruleName, BindingResult result, Model model) {
         // TODO: check data valid and save to db, after saving return RuleName list
         if (!result.hasErrors()) {
             ruleNameService.doSave(ruleName);
+            User user = userService.getFullname();
+
+            model.addAttribute("user",user.getFullname());
             model.addAttribute("ruleNames", ruleNameService.findAll());
             return "redirect:/ruleName/list";
         }
         return "ruleName/add";
     }
 
+    /**
+     *
+     * To access to the ruleName/update page about a ruleName
+     *
+     */
     @GetMapping("/ruleName/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         // TODO: get RuleName by Id and to model then show to the form
         Optional<RuleName> ruleName = ruleNameService.findById(id);
         if(ruleName.isEmpty()){
+            User user = userService.getFullname();
+
+            model.addAttribute("user",user.getFullname());
             model.addAttribute("errorMessage","The chosen rule name is empty");
             model.addAttribute("ruleNames", ruleNameService.findAll());
             return "ruleName/list";
@@ -69,6 +94,11 @@ public class RuleNameController {
         return "ruleName/update";
     }
 
+    /**
+     *
+     * To update a ruleName
+     *
+     */
     @PostMapping("/ruleName/update/{id}")
     public String updateRuleName(@Valid @ModelAttribute("ruleName") RuleName updatedRuleName,
                              BindingResult result, Model model) {
@@ -78,15 +108,26 @@ public class RuleNameController {
         }
 
         ruleNameService.doSave(updatedRuleName);
+        User user = userService.getFullname();
+
+        model.addAttribute("user",user.getFullname());
         model.addAttribute("ruleNames", ruleNameService.findAll());
         return "redirect:/ruleName/list";
     }
 
+    /**
+     *
+     * To delete a ruleName
+     *
+     */
     @GetMapping("/ruleName/delete/{id}")
     public String deleteRuleName(@PathVariable("id") Integer id, Model model) {
         // TODO: Find RuleName by Id and delete the RuleName, return to Rule list
         //RuleName ruleName = ruleNameService.findById(id);
         ruleNameService.doDelete(id);
+        User user = userService.getFullname();
+
+        model.addAttribute("user",user.getFullname());
         model.addAttribute("ruleNames", ruleNameService.findAll());
         return "redirect:/ruleName/list";
     }

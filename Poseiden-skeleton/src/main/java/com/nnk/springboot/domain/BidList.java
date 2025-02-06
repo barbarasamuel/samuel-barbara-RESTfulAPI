@@ -7,7 +7,11 @@ import lombok.Setter;
 
 import java.sql.Date;
 
-
+/**
+ *
+ * To manipulate data about bidLists
+ *
+ */
 @Getter
 @Setter
 @Entity

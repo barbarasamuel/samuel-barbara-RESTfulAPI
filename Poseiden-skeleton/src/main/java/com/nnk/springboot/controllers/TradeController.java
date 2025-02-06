@@ -26,6 +26,11 @@ public class TradeController {
     @Autowired
     private UserService userService;
 
+    /**
+     *
+     * To access to the trade/list page
+     *
+     */
     @GetMapping("/trade/list")
     public String home(Model model)
     {
@@ -38,17 +43,30 @@ public class TradeController {
         return "trade/list";
     }
 
+    /**
+     *
+     * To access to the trade/add page
+     *
+     */
     @GetMapping("/trade/add")
     public String addUser(TradeDTO trade, Model model) {
         model.addAttribute("trade",trade);
         return "trade/add";
     }
 
+    /**
+     *
+     * To create a new trade
+     *
+     */
     @PostMapping("/trade/validate")
     public String validate(@Valid @ModelAttribute("trade") TradeDTO trade, BindingResult result, Model model) {
         // TODO: check data valid and save to db, after saving return Trade list
         if (!result.hasErrors()) {
             tradeService.doSave(trade);
+            User user = userService.getFullname();
+
+            model.addAttribute("user",user.getFullname());
             model.addAttribute("trades", tradeService.findAll());
             return "redirect:/trade/list";
         }
@@ -57,11 +75,19 @@ public class TradeController {
         return "trade/add";
     }
 
+    /**
+     *
+     * To access to the trade/update page about a trade
+     *
+     */
     @GetMapping("/trade/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         // TODO: get Trade by Id and to model then show to the form
         Optional<Trade> trade = tradeService.findById(id);
         if(trade.isEmpty()){
+            User user = userService.getFullname();
+
+            model.addAttribute("user",user.getFullname());
             model.addAttribute("errorMessage","The chosen trade is empty");
             model.addAttribute("trades", tradeService.findAll());
             return "trade/list";
@@ -70,6 +96,11 @@ public class TradeController {
         return "trade/update";
     }
 
+    /**
+     *
+     * To update a trade
+     *
+     */
     @PostMapping("/trade/update/{id}")
     public String updateTrade(@Valid @ModelAttribute("trade") TradeDTO updatedTrade,
                               BindingResult result,  Model model) {
@@ -80,14 +111,25 @@ public class TradeController {
         }
 
         tradeService.doSave(updatedTrade);
+        User user = userService.getFullname();
+
+        model.addAttribute("user",user.getFullname());
         model.addAttribute("trades", tradeService.findAll());
         return "redirect:/trade/list";
     }
 
+    /**
+     *
+     * To delete a trade
+     *
+     */
     @GetMapping("/trade/delete/{id}")
     public String deleteTrade(@PathVariable("id") Integer id, Model model) {
         // TODO: Find Trade by Id and delete the Trade, return to Trade list
         tradeService.doDelete(id);
+        User user = userService.getFullname();
+
+        model.addAttribute("user",user.getFullname());
         model.addAttribute("trades", tradeService.findAll());
         return "redirect:/trade/list";
     }

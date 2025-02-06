@@ -14,12 +14,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-
-/**
- *
- * To manage the security
- *
- */
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig {
@@ -28,17 +22,31 @@ public class SecurityConfig {
         this.logoutHandler = logoutHandler;
     }
 
-
+    /**
+     *
+     * To load the user details like the username, the password, the role to authenticate the user
+     *
+     */
     @Bean
     UserDetailsService userDetailsService() {
         return new UserDetailsServiceImpl();
     }
 
+    /**
+     *
+     * To encode or check the password
+     *
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     *
+     * To configure an authentication provider using UserDetailsService and PasswordEncoder
+     *
+     */
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -47,6 +55,11 @@ public class SecurityConfig {
         return authProvider;
     }
 
+    /**
+     *
+     * To manage the security
+     *
+     */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 

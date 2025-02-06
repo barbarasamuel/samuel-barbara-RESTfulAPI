@@ -6,6 +6,11 @@ import javax.validation.constraints.NotBlank;*/
 import jakarta.persistence.*;
 import lombok.*;
 
+/**
+ *
+ * To manipulate data about users
+ *
+ */
 @Getter
 @Setter
 @Entity

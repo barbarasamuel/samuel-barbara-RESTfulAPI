@@ -37,7 +37,7 @@ public class LoginController {
         try{
 
             User user = userService.getUser(username);
-            if(userService.checkPassword(user,username,password)) {
+            if(userService.checkPassword(user,password)) {
                 request.login(user.getUsername(), user.getPassword());
 
                 log.info("Login successful");
@@ -52,6 +52,11 @@ public class LoginController {
         }
     }
 
+    /**
+     *
+     * To access to the login page
+     *
+     */
     @GetMapping("/login")
     public String login(User user, Model model) {
 

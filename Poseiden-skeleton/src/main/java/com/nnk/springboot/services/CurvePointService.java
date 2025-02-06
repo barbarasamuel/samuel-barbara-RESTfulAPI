@@ -15,6 +15,11 @@ public class CurvePointService {
     @Autowired
     private CurvePointRepository curvePointRepository;
 
+    /**
+     *
+     * To save or update a curvePoint
+     *
+     */
     public CurvePoint doSave(CurvePointDTO curvePointDTO){
         CurvePoint curvePoint = new CurvePoint();
         curvePoint.setId(curvePointDTO.getId());
@@ -24,6 +29,11 @@ public class CurvePointService {
         return curvePointRepository.save(curvePoint);
     }
 
+    /**
+     *
+     * To get the list of curvePointDTO
+     *
+     */
     public List<CurvePointDTO> findAll(){
         List<CurvePointDTO> curvePointDTOList = new ArrayList<>();
         List<CurvePoint> curvePointList = curvePointRepository.findAll();
@@ -41,14 +51,29 @@ public class CurvePointService {
         return curvePointDTOList;
     }
 
+    /**
+     *
+     * To get a curvePoint
+     *
+     */
     public Optional<CurvePoint> findById(Integer id){
         return curvePointRepository.findById(id);
     }
 
+    /**
+     *
+     * To delete a curvePoint
+     *
+     */
     public void doDelete(Integer id){
         curvePointRepository.deleteById(id);
     }
 
+    /**
+     *
+     * To convert a curvePoint to a curvePointDTO
+     *
+     */
     public CurvePointDTO getCurvePointDTO(CurvePoint curvePoint){
         CurvePointDTO curvePointDTO = new CurvePointDTO();
         curvePointDTO.setId(curvePoint.getId());

@@ -1,7 +1,6 @@
 package com.nnk.springboot.domain;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +9,11 @@ import lombok.Setter;
 //import java.sql.Timestamp;
 import java.util.Date;
 
+/**
+ *
+ * To manipulate data about trades
+ *
+ */
 @Getter
 @Setter
 @Entity
@@ -21,11 +25,9 @@ public class Trade {
     @Column(nullable=false)
     private Integer id;
 
-    //@NotBlank(message = "Account is mandatory")
     @Column(nullable=false)
     private String account;
 
-    //@NotBlank(message = "Type is mandatory")
     @Column(nullable=false)
     private String type;
 

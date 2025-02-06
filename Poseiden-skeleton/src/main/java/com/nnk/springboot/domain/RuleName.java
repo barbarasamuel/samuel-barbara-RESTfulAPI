@@ -9,6 +9,11 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ *
+ * To manipulate data about ruleNames
+ *
+ */
 @Getter
 @Setter
 @Entity

@@ -1,13 +1,15 @@
 package com.nnk.springboot.repositories;
 
 import com.nnk.springboot.domain.BidList;
-import com.nnk.springboot.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.Optional;
 
-
-public interface BidListRepository extends JpaRepository<BidList, Integer>, JpaSpecificationExecutor<BidList> {
+/**
+ *
+ * To manipulate data from the database linked to the bidlist table
+ *
+ */
+public interface BidListRepository extends JpaRepository<BidList, Integer> {
     public Optional<BidList> findById(Integer id);
 }

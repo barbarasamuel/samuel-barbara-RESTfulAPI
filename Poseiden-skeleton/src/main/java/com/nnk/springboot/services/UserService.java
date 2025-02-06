@@ -23,7 +23,11 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-
+    /**
+     *
+     * To save or update a user
+     *
+     */
     public User doSave(UserDTO gottenUser){
         User user = new User();
         user.setId(gottenUser.getId());
@@ -35,14 +39,29 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    /**
+     *
+     * To get a user
+     *
+     */
     public Optional<User> findById(Integer id){
         return userRepository.findById(id);
     }
 
+    /**
+     *
+     * To delete a user
+     *
+     */
     public void doDelete(Integer id){
         userRepository.deleteById(id);
     }
 
+    /**
+     *
+     * To get the list of userDTO
+     *
+     */
     public List<UserDTO> findAll(){
         List<UserDTO> usersDTOList = new ArrayList<>();
         List<User> usersList = userRepository.findAll();
@@ -60,12 +79,22 @@ public class UserService {
         return usersDTOList;
     }
 
+    /**
+     *
+     * To get the user
+     *
+     */
     public User getUser(String username){
 
         return userRepository.findByUsername(username);
     }
 
-    public Boolean checkPassword(User user, String username, String password){
+    /**
+     *
+     * To check the user password
+     *
+     */
+    public Boolean checkPassword(User user, String password){
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
         if (encoder.matches(password, user.getPassword())) {
@@ -75,6 +104,11 @@ public class UserService {
         return false;
     }
 
+    /**
+     *
+     * To get the connected user fullname
+     *
+     */
     public User getFullname(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
@@ -82,6 +116,11 @@ public class UserService {
         return userRepository.findByUsername(userDetails.getUsername());
     }
 
+    /**
+     *
+     * To convert a user to a userDTO
+     *
+     */
     public UserDTO getUserDTO(User user){
         UserDTO userDTO = new UserDTO();
 

@@ -11,6 +11,11 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ *
+ * To manipulate data about ratings
+ *
+ */
 @Getter
 @Setter
 @Entity

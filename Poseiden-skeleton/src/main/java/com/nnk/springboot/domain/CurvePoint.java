@@ -1,13 +1,16 @@
 package com.nnk.springboot.domain;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
 
-
+/**
+ *
+ * To manipulate data about curvePoints
+ *
+ */
 @Getter
 @Setter
 @Entity

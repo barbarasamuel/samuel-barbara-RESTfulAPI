@@ -16,6 +16,11 @@ public class BidListService {
     @Autowired
     private BidListRepository bidListRepository;
 
+    /**
+     *
+     * To save or update a bidList
+     *
+     */
     public BidList doSave(BidListDTO bidListDTO){
         BidList bidList = new BidList();
         bidList.setId(bidListDTO.getId());
@@ -25,6 +30,11 @@ public class BidListService {
         return bidListRepository.save(bidList);
     }
 
+    /**
+     *
+     * To get the list of bidListDTO
+     *
+     */
     public List<BidListDTO> findAll(){
         List<BidListDTO> bidListDTOList = new ArrayList<>();
         List<BidList> bidListList = bidListRepository.findAll();
@@ -42,15 +52,30 @@ public class BidListService {
         return bidListDTOList;
     }
 
+    /**
+     *
+     * To get a bidList
+     *
+     */
     public Optional<BidList> findById(Integer id){
         Optional<BidList> bidList = bidListRepository.findById(id);
         return bidList;
     }
 
+    /**
+     *
+     * To delete a bidList
+     *
+     */
     public void doDelete(Integer id){
         bidListRepository.deleteById(id);
     }
 
+    /**
+     *
+     * To convert a bidlist to a bdListDTO
+     *
+     */
     public BidListDTO getBidListDTO(BidList bidList){
         BidListDTO bidListDTO = new BidListDTO();
 

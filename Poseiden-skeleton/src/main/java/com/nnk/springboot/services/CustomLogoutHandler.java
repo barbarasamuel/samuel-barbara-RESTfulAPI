@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CustomLogoutHandler {
-    //@Override
+
     public void logout(HttpServletRequest request, HttpServletResponse response,
                        Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
