@@ -1,5 +1,6 @@
-package com.nnk.springboot;
+package com.nnk.springboot.service;
 
+import com.nnk.springboot.PoseidenApplication;
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.UserRepository;
 import org.junit.jupiter.api.Test;

@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-//import javax.validation.Valid;
 
 @Controller
 public class CurveController {
@@ -35,7 +34,7 @@ public class CurveController {
     @GetMapping("/curvePoint/list")
     public String home(Model model)
     {
-        // TODO: find all Curve Point, add to model
+
         List<CurvePointDTO> curvePointDTOList = curvePointService.findAll();
         User user = userService.getFullname();
 
@@ -62,7 +61,7 @@ public class CurveController {
      */
     @PostMapping("/curvePoint/validate")
     public String validate(@Valid @ModelAttribute("curvePoint") CurvePointDTO curvePoint, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return Curve list
+
         if (!result.hasErrors()) {
             curvePointService.doSave(curvePoint);
             User user = userService.getFullname();
@@ -83,7 +82,7 @@ public class CurveController {
      */
     @GetMapping("/curvePoint/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get CurvePoint by Id and to model then show to the form
+
         Optional<CurvePoint> curvePoint = curvePointService.findById(id);
         if(curvePoint.isEmpty()){
             User user = userService.getFullname();
@@ -106,7 +105,7 @@ public class CurveController {
     @PostMapping("/curvePoint/update/{id}")
     public String updateBid(@Valid @ModelAttribute("curvePoint") CurvePointDTO updatedCurvePoint,
                             BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Curve and return Curve list
+
         if (result.hasErrors()) {
             model.addAttribute("curvePoint", updatedCurvePoint);
             return "curvePoint/update";
@@ -127,7 +126,6 @@ public class CurveController {
      */
     @GetMapping("/curvePoint/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model) {
-        // TODO: Find Curve by Id and delete the Curve, return to Curve list
 
         curvePointService.doDelete(id);
         User user = userService.getFullname();

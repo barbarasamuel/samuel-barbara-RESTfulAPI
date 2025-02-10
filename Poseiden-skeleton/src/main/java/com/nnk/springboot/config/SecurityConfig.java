@@ -57,7 +57,7 @@ public class SecurityConfig {
 
     /**
      *
-     * To manage the security
+     * To manage the security, to config the sessions based authentication
      *
      */
     @Bean

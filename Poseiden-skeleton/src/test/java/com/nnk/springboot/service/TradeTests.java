@@ -1,5 +1,6 @@
-package com.nnk.springboot;
+package com.nnk.springboot.service;
 
+import com.nnk.springboot.PoseidenApplication;
 import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.repositories.TradeRepository;
 import org.junit.jupiter.api.Test;

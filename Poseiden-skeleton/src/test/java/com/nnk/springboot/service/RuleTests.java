@@ -1,5 +1,6 @@
-package com.nnk.springboot;
+package com.nnk.springboot.service;
 
+import com.nnk.springboot.PoseidenApplication;
 import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.repositories.RuleNameRepository;
 import org.junit.jupiter.api.Test;

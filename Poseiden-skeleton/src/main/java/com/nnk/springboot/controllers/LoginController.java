@@ -14,11 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Slf4j
 @Controller
-//@RequestMapping("app")
 public class LoginController {
 
-    /*@Autowired
-    private UserRepository userRepository;*/
     @Autowired
     private UserService userService;
 
@@ -63,18 +60,10 @@ public class LoginController {
         model.addAttribute("user", user);
         return "login";
     }
-    /*public ModelAndView login() {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("login");
-
-        return mav;
-    }*/
 
     @GetMapping("secure/article-details")
     public ModelAndView getAllUserArticles() {
         ModelAndView mav = new ModelAndView();
-        /*mav.addObject("users", userRepository.findAll());
-        mav.setViewName("user/list");*/
         return mav;
     }
 

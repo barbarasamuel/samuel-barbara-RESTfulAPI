@@ -14,11 +14,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-//import javax.validation.Valid;
 
 @Controller
 public class RuleNameController {
-    // TODO: Inject RuleName service
+
     @Autowired
     private RuleNameService ruleNameService;
 
@@ -33,7 +32,7 @@ public class RuleNameController {
     @RequestMapping("/ruleName/list")
     public String home(Model model)
     {
-        // TODO: find all RuleName, add to model
+
         List<RuleName> ruleNameList = ruleNameService.findAll();
         User user = userService.getFullname();
 
@@ -60,7 +59,7 @@ public class RuleNameController {
      */
     @PostMapping("/ruleName/validate")
     public String validate(@Valid @ModelAttribute("ruleName") RuleName ruleName, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return RuleName list
+
         if (!result.hasErrors()) {
             ruleNameService.doSave(ruleName);
             User user = userService.getFullname();
@@ -79,7 +78,7 @@ public class RuleNameController {
      */
     @GetMapping("/ruleName/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get RuleName by Id and to model then show to the form
+
         Optional<RuleName> ruleName = ruleNameService.findById(id);
         if(ruleName.isEmpty()){
             User user = userService.getFullname();
@@ -102,7 +101,7 @@ public class RuleNameController {
     @PostMapping("/ruleName/update/{id}")
     public String updateRuleName(@Valid @ModelAttribute("ruleName") RuleName updatedRuleName,
                              BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update RuleName and return RuleName list
+
         if (result.hasErrors()) {
             return "ruleName/update";
         }
@@ -122,8 +121,7 @@ public class RuleNameController {
      */
     @GetMapping("/ruleName/delete/{id}")
     public String deleteRuleName(@PathVariable("id") Integer id, Model model) {
-        // TODO: Find RuleName by Id and delete the RuleName, return to Rule list
-        //RuleName ruleName = ruleNameService.findById(id);
+
         ruleNameService.doDelete(id);
         User user = userService.getFullname();
 

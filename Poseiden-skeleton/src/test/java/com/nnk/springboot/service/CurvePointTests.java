@@ -1,5 +1,6 @@
-package com.nnk.springboot;
+package com.nnk.springboot.service;
 
+import com.nnk.springboot.PoseidenApplication;
 import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.repositories.CurvePointRepository;
 import org.junit.jupiter.api.Test;

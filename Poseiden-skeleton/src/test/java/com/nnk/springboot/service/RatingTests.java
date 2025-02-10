@@ -1,5 +1,6 @@
-package com.nnk.springboot;
+package com.nnk.springboot.service;
 
+import com.nnk.springboot.PoseidenApplication;
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.repositories.RatingRepository;
 import org.junit.jupiter.api.Test;

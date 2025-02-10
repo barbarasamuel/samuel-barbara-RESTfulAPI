@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 
@@ -53,12 +52,11 @@ public class UserController {
     @PostMapping("/user/validate")
     public String validate(@Valid @ModelAttribute("user") UserDTO userDTO, BindingResult result, Model model) {
         if (!result.hasErrors()) {
-            //userRepository.save(user);
+
             userService.doSave(userDTO);
             User user = userService.getFullname();
 
             model.addAttribute("user",user.getFullname());
-            //model.addAttribute("users", userRepository.findAll());
             model.addAttribute("users", userService.findAll());
             return "redirect:/user/list";
         }
@@ -74,8 +72,8 @@ public class UserController {
      */
     @GetMapping("/user/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        //User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-        Optional<User> user = userService.findById(id);//.orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+
+        Optional<User> user = userService.findById(id);
         if(user.isEmpty()){
 
             model.addAttribute("errorMessage","The chosen user is empty");
@@ -83,7 +81,6 @@ public class UserController {
             return "user/list";
         }
 
-        //user.setPassword("");
         model.addAttribute("user", userService.getUserDTO(user.get()));
         return "user/update";
     }
@@ -94,8 +91,6 @@ public class UserController {
      *
      */
     @PostMapping("/user/update/{id}")
-    /*public String updateUser(@PathVariable("id") Integer id, @RequestParam("") User user,
-                             BindingResult result, Model model) {*/
     public String updateUser(@Valid @ModelAttribute("user") UserDTO updatedUser,
                              BindingResult result, Model model) {
         if (result.hasErrors()) {
@@ -103,14 +98,10 @@ public class UserController {
             return "user/update";
         }
 
-        /*
-        userRepository.save(user);*/
-
         userService.doSave(updatedUser);
         User user = userService.getFullname();
 
         model.addAttribute("user",user.getFullname());
-        //model.addAttribute("users", userRepository.findAll());
         model.addAttribute("users", userService.findAll());
         return "redirect:/user/list";
     }
@@ -122,10 +113,7 @@ public class UserController {
      */
     @GetMapping("/user/delete/{id}")
     public String deleteUser(@PathVariable("id") Integer id, Model model) {
-        /*User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-        userRepository.delete(user);
-        model.addAttribute("users", userRepository.findAll());*/
-        //User user = userService.findById(id);//.orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+
         userService.doDelete(id);
         User user = userService.getFullname();
 
